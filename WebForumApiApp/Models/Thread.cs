@@ -25,5 +25,5 @@ public class Thread
     public Topic Topic { get; set; } = null!;
 
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
-    public ICollection<ThreadTag> ThreadTags { get; set; } = new ICollection<ThreadTag>();
+    public ICollection<ThreadTag> ThreadTags { get; set; } = new List<ThreadTag>();
 }
