@@ -14,7 +14,7 @@ public class Thread
     
     public int TopicId { get; set; }
     
-    public DateTime CreatedOn { get; set; }
+    public DateTime CreatedAt { get; set; }
     
     public bool IsDeleted { get; set; }
 

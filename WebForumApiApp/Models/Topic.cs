@@ -8,6 +8,6 @@ public class Topic
     
     public string? Description { get; set; }
     
-    //Навигация
+    // Навигация
     public ICollection<Thread> Threads { get; set; } = new List<Thread>();
 }

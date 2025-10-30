@@ -14,7 +14,7 @@ public class User
 
     public bool IsDeleted { get; set; }
     
-    //Навигация
+    // Навигация
     public ICollection<Thread> Threads { get; set; } = new List<Thread>();
     public ICollection<Comment> Comments { get; set; } = new List<Comment>();
 }
