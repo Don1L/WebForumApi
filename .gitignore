@@ -3,3 +3,9 @@ obj/
 /packages/
 riderModule.iml
 /_ReSharper.Caches/
+
+# Environment
+.env
+.env.local
+.env.production
+.env.staging
