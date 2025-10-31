@@ -1,3 +1,5 @@
+using Thread = WebForumApiApp.Models.Thread;
+
 namespace WebForumApiApp.Models;
 
 public class ThreadTag
