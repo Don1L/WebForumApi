@@ -9,7 +9,7 @@ public static class SeedData
 {
     public static async Task SeedDatabaseAsync(ApplicationDbContext context)
     {
-        await context.Database.BeginTransactionAsync();
+        await context.Database.EnsureCreatedAsync();
 
         if (context.Users.Any())
         {
@@ -34,10 +34,16 @@ public static class SeedData
         context.Topics.AddRange(topics);
         
         // Tags
-        var tags = new List<Tag>();
-        for (int i = 0; i < 20; i++)
+        var tagName = new[]
         {
-            tags.Add(new Tag { Name = faker.Lorem.Word() });
+            "новичок", "ошибка", "совет", "вопрос", "решение", "обсуждение", "дебаг", "архитектура",
+            "безопасность", "производительность", "тестирование", "документация", "рефакторинг",
+            "алгоритмы", "базы-данных", "api", "frontend", "backend", "fullstack", "devops"
+        };
+        var tags = new List<Tag>();
+        foreach (var name in tagName)
+        {
+            tags.Add(new Tag { Name = name });
         }
         context.Tags.AddRange(tags);
         
@@ -62,13 +68,15 @@ public static class SeedData
         var threads = new List<Thread>();
         for (int i = 0; i < 100; i++)
         {
+            var threadDate = faker.Date.Recent(90);
+            threadDate = DateTime.SpecifyKind(threadDate, DateTimeKind.Utc);
             threads.Add( new Thread
             {
                 Title = faker.Lorem.Sentence(),
                 Text = faker.Lorem.Paragraphs(faker.Random.Int(1, 3)),
                 AuthorId = users[faker.Random.Int(0, users.Count - 1)].Id,
                 TopicId = topics[faker.Random.Int(0, topics.Count - 1)].Id,
-                CreatedAt = faker.Date.Recent(90),
+                CreatedAt = threadDate,
                 IsHidden = false,
                 IsDeleted = false,
             });
@@ -96,12 +104,14 @@ public static class SeedData
             var commentCounter = faker.Random.Int(1, 15);
             for (int i = 0; i < commentCounter; i++)
             {
+                var commentDate = faker.Date.Between(thread.CreatedAt, DateTime.UtcNow);
+                commentDate = DateTime.SpecifyKind(commentDate, DateTimeKind.Utc);
                 comments.Add(new Comment
                     {
                         Text = faker.Lorem.Paragraph(),
                         AuthorId = users[faker.Random.Int(0, users.Count - 1)].Id,
                         ThreadId = threads[faker.Random.Int(0, threads.Count - 1)].Id,
-                        CreatedAt = faker.Date.Between(thread.CreatedAt, DateTime.UtcNow),
+                        CreatedAt = commentDate,
                         IsDeleted = false,
                     });
             }
