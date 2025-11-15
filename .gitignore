@@ -9,3 +9,9 @@ riderModule.iml
 .env.local
 .env.production
 .env.staging
+
+
+.idea/
+*.iml
+*.ipr
+*.iws
